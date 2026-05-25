@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Personal site — 3 directions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    html, body { margin:0; padding:0; height:100%; background:#f0eee9; }
+    body { font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+    #root { height:100%; }
+
+    /* Top intro banner — explains the canvas */
+    .intro-banner {
+      position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+      z-index: 100; pointer-events: none;
+      max-width: 720px; padding: 12px 18px;
+      background: #1f1a14; color: #f3ece0;
+      border-radius: 10px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px; letter-spacing: .02em; line-height: 1.5;
+      display: flex; align-items: center; gap: 14px;
+      opacity: 0; animation: introFade .6s .3s ease-out forwards;
+    }
+    .intro-banner .dot { width: 8px; height: 8px; border-radius: 50%; background: #b6452a; flex: 0 0 auto; }
+    .intro-banner b { color: #fff; font-weight: 500; }
+    @keyframes introFade { to { opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <div class="intro-banner">
+    <span class="dot"></span>
+    <span>
+      <b>3 directions to compare.</b>
+      Drag to pan · scroll to zoom · click ⤢ on any artboard to view full-size.
+      All copy is placeholder — tell me your pick and I'll wire in your real content.
+    </span>
+  </div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="data.jsx"></script>
+  <script type="text/babel" src="cv-editorial.jsx"></script>
+  <script type="text/babel" src="cv-minimal.jsx"></script>
+  <script type="text/babel" src="cv-terminal.jsx"></script>
+
+  <script type="text/babel">
+    const App = () => (
+      <DesignCanvas initialZoom={0.32}>
+        <DCSection
+          id="cv-directions"
+          title="Personal CV site — three directions"
+          subtitle="Warm-neutral palette · single long-scroll page · ships as one index.html on GitHub Pages"
+        >
+          <DCArtboard id="v1-editorial" label="V1 · Editorial" width={1280} height={4400}>
+            <CVEditorial />
+          </DCArtboard>
+          <DCArtboard id="v2-minimal" label="V2 · Minimal" width={1280} height={3600}>
+            <CVMinimal />
+          </DCArtboard>
+          <DCArtboard id="v3-terminal" label="V3 · Terminal" width={1280} height={4200}>
+            <CVTerminal />
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+    );
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

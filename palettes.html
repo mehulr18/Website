@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CV site — palette options</title>
+  <style>
+    html, body { margin:0; padding:0; height:100%; background:#f0eee9; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+    #root { height:100%; }
+
+    .intro-banner {
+      position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+      z-index: 100; pointer-events: none;
+      max-width: 760px; padding: 12px 18px;
+      background: #1f1a14; color: #f3ece0;
+      border-radius: 10px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04);
+      font-family: ui-monospace, 'JetBrains Mono', monospace;
+      font-size: 12px; letter-spacing: .02em; line-height: 1.5;
+      display: flex; align-items: center; gap: 14px;
+      opacity: 0; animation: introFade .6s .3s ease-out forwards;
+    }
+    .intro-banner .dot { width: 8px; height: 8px; border-radius: 50%; background: #b6452a; flex: 0 0 auto; }
+    .intro-banner b { color: #fff; font-weight: 500; }
+    @keyframes introFade { to { opacity: 1; } }
+
+    /* Iframe inside artboard fills the artboard area cleanly */
+    .palette-frame {
+      width: 100%; height: 100%; border: 0; display: block;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <div class="intro-banner">
+    <span class="dot"></span>
+    <span>
+      <b>4 new palette directions, away from the warm/cream family.</b>
+      Older options preserved below for reference. Tell me which one and I'll apply it to <code>index.html</code>.
+    </span>
+  </div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+
+  <script type="text/babel">
+    // Each palette is one DCArtboard hosting an iframe of a real index.html variant.
+    // Width matches the design's narrow-laptop target; height covers the full scroll.
+    const ARTBOARD_W = 1280;
+    const ARTBOARD_H = 4400;
+
+    const PaletteFrame = ({ src }) => (
+      <iframe className="palette-frame" src={src} title={src} />
+    );
+
+    const App = () => (
+      <DesignCanvas initialZoom={0.28}>
+        <DCSection
+          id="palettes-bold"
+          title="New directions — away from cream/terracotta"
+          subtitle="Bigger departures: full dark mode, clean cobalt-on-white, an aubergine ink variant, and a warm-charcoal industrial. Layout and content unchanged."
+        >
+          <DCArtboard
+            id="palette-midnight"
+            label="D · Midnight + Lime  ·  #b6e84a on near-black"
+            width={ARTBOARD_W}
+            height={ARTBOARD_H}
+          >
+            <PaletteFrame src="palettes/midnight.html" />
+          </DCArtboard>
+
+          <DCArtboard
+            id="palette-cobalt"
+            label="E · Cobalt on Paper  ·  #1d3fa8 on off-white"
+            width={ARTBOARD_W}
+            height={ARTBOARD_H}
+          >
+            <PaletteFrame src="palettes/cobalt.html" />
+          </DCArtboard>
+
+          <DCArtboard
+            id="palette-aubergine"
+            label="F · Aubergine Ink  ·  #8b3fa3 violet, deep purple ink"
+            width={ARTBOARD_W}
+            height={ARTBOARD_H}
+          >
+            <PaletteFrame src="palettes/aubergine.html" />
+          </DCArtboard>
+
+          <DCArtboard
+            id="palette-carbon"
+            label="G · Carbon + Sulphur  ·  #d9a72e on warm charcoal"
+            width={ARTBOARD_W}
+            height={ARTBOARD_H}
+          >
+            <PaletteFrame src="palettes/carbon.html" />
+          </DCArtboard>
+        </DCSection>
+
+        <DCSection
+          id="palettes-warm"
+          title="Earlier warm-family options (for reference)"
+          subtitle="The original cream/terracotta and three close variants. Keep visible to compare, or delete this section."
+        >
+          <DCArtboard
+            id="palette-warm"
+            label="Original · Warm + Terracotta  ·  #b6452a"
+            width={ARTBOARD_W}
+            height={ARTBOARD_H}
+          >
+            <PaletteFrame src="index.html" />
+          </DCArtboard>
+
+          <DCArtboard
+            id="palette-crimson"
+            label="A · Newsprint Crimson  ·  #a31818"
+            width={ARTBOARD_W}
+            height={ARTBOARD_H}
+          >
+            <PaletteFrame src="palettes/crimson.html" />
+          </DCArtboard>
+
+          <DCArtboard
+            id="palette-green"
+            label="B · Bond Green  ·  #2c5e3e"
+            width={ARTBOARD_W}
+            height={ARTBOARD_H}
+          >
+            <PaletteFrame src="palettes/green.html" />
+          </DCArtboard>
+
+          <DCArtboard
+            id="palette-slate"
+            label="C · Slate + Saffron  ·  #b8852b on slate"
+            width={ARTBOARD_W}
+            height={ARTBOARD_H}
+          >
+            <PaletteFrame src="palettes/slate.html" />
+          </DCArtboard>
+        </DCSection>
+      </DesignCanvas>
+    );
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
